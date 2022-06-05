@@ -1,5 +1,8 @@
 # local package
 -e .
+pillow
+dvc
+"dvc[gdrive]"
 
 # external requirements
 click
