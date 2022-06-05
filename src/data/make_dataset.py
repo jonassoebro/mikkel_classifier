@@ -26,7 +26,6 @@ def main(input_filepath, output_filepath):
     counter = 0
     for img_name in os.listdir(input_filepath):
         img_path = os.path.join(input_filepath, img_name)
-        img_name = counter
         process_raw_image(img_path, output_filepath, output_imgname=counter, imgsize=64)
         counter = counter+1
 if __name__ == '__main__':
@@ -35,7 +34,7 @@ if __name__ == '__main__':
 
     # not used in this stub but often useful for finding various files
     project_dir = Path(__file__).resolve().parents[2]
-    
+
     # find .env automagically by walking up directories until it's found, then
     # load up the .env entries as environment variables
     load_dotenv(find_dotenv())

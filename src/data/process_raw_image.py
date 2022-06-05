@@ -22,11 +22,12 @@ def process_raw_image(input_imgpath: path, output_imgpath: path, output_imgname:
         yNew = round(y * imgsize / x)
 
     # resize
-    im.resize((int(xNew), int(yNew)), Image.ANTIALIAS)
+    im = im.resize((int(xNew), int(yNew)), Image.ANTIALIAS)
 
     # crop
-    im.crop(((int(xNew) - imgsize)/2, (int(yNew) - imgsize)/2, (int(xNew) + imgsize)/2, (int(yNew) + imgsize)/2))
+    im = im.crop(((int(xNew) - imgsize)/2, (int(yNew) - imgsize)/2, (int(xNew) + imgsize)/2, (int(yNew) + imgsize)/2))
 
-    # save
+    # im = im.resize((imgsize, imgsize), Image.ANTIALIAS)
+    print(im.size)
     print(f"Saving image in {output_imgpath}")
     im.save(output_imgpath+f"{output_imgname}.png")
