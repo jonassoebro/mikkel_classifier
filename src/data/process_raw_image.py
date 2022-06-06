@@ -13,7 +13,7 @@ def process_raw_image(input_imgpath: path, output_imgpath: path, output_imgname:
     # New sizes
     yNew = imgsize
     xNew = yNew 
-
+    
     # First, set right size
     if x > y:
         # Y is smallest, figure out relation to 256

@@ -17,17 +17,20 @@ def main(input_filepath, output_filepath):
     logger.info('making final data set from raw data')
     
     # Make target dirs if they do not already exists
-    if not os.path.isdir("data/processed/negative"):
-        os.mkdir("data/processed/negative")
-    if not os.path.isdir("data/processed/positive"):
-        os.mkdir("data/processed/positive")
+    if not os.path.isdir("data/processed"):
+        os.mkdir("data/processed")
     
-    # Rename images as numbers
+    # Rename images as class name with numbering
     counter = 0
     for img_name in os.listdir(input_filepath):
         img_path = os.path.join(input_filepath, img_name)
-        process_raw_image(img_path, output_filepath, output_imgname=counter, imgsize=64)
+        if (img_path.split("/")[2]) == "positive":
+            class_name = "pos"
+        elif (img_path.split("/")[2]) == "negative":
+            class_name = "neg"
+        process_raw_image(img_path, output_filepath, output_imgname=class_name+str(counter), imgsize=64)
         counter = counter+1
+
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)

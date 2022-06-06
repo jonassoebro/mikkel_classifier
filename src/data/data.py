@@ -15,27 +15,21 @@ import matplotlib.pyplot as plt
 import zipfile
 import gdown
 
-
-def download_data(base_dir):
-    if not os.path.exists(base_dir + 'hotdog_nothotdog'):
-        if not os.path.exists(base_dir):
-            os.mkdir(base_dir)
-        url = 'https://drive.google.com/uc?id=1hwyBl4Fa0IHihun29ahszf1M2cxn9TFk'
-        gdown.download(url, base_dir + 'hotdog_nothotdog.zip', quiet=False)
-
-        with zipfile.ZipFile(base_dir + 'hotdog_nothotdog.zip', 'r') as zip_ref:
-            zip_ref.extractall(base_dir)
-
-
-class Hotdog_NotHotdog(Dataset):
-    def __init__(self, train, transform, base_path="./", data_path='hotdog_nothotdog'):
+class Mikkel_Data(Dataset):
+    def __init__(self, train, transform, base_path="./", data_path='data/processed'):
         # 'Initialization'
         self.transform = transform
-        data_path = os.path.join(base_path, data_path, 'train' if train else 'test')
-        image_classes = [os.path.split(d)[1] for d in glob.glob(data_path +'/*') if os.path.isdir(d)]
-        image_classes.sort()
-        self.name_to_label = {c: id for id, c in enumerate(image_classes)}
-        self.image_paths = glob.glob(data_path + '/*/*.jpg')
+        data_path = os.path.join(base_path, data_path)
+        #image_classes = [os.path.split(d)[1] for d in glob.glob(data_path +'/*') if os.path.isdir(d)]
+        #image_classes.sort()
+        self.name_to_label = {}
+        for filename in os.listdir(data_path):
+            if "pos" in filename:
+                self.name_to_label[filename] = 1
+            elif "neg" in filename:
+                self.name_to_label[filename] = 0    
+        self.image_paths = glob.glob(data_path + '/*/*.png')
+        
         self.targets = np.array([self.name_to_label[os.path.split(os.path.split(image_path)[0])[1]]
                                  for image_path in  self.image_paths])
         
