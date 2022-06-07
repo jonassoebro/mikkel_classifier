@@ -28,6 +28,7 @@ def process_raw_image(input_imgpath: path, output_imgpath: path, output_imgname:
     im = im.crop(((int(xNew) - imgsize)/2, (int(yNew) - imgsize)/2, (int(xNew) + imgsize)/2, (int(yNew) + imgsize)/2))
 
     # im = im.resize((imgsize, imgsize), Image.ANTIALIAS)
+    im = im.convert('RGB')
     print(im.size)
     print(f"Saving image in {output_imgpath}")
-    im.save(output_imgpath+f"{output_imgname}.png")
+    im.save(output_imgpath+f"{output_imgname}.jpg", "JPEG")

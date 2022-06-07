@@ -11,7 +11,7 @@ def get_trainer(cfg, engine):
                                                   monitor=cfg.training.model_checkpoint.monitor,
                                                   filename='model',
                                                   verbose=False,
-                                                  period=1))
+                                                  ))
     callbacks.append(pl.callbacks.progress.ProgressBar())
 
     gpus = 0

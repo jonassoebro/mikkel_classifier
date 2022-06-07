@@ -3,6 +3,13 @@
 pillow
 dvc
 "dvc[gdrive]"
+torch
+torchvision
+matplotlib
+hydra-core
+wandb
+omegaconf
+pytorch_lightning
 
 # external requirements
 click

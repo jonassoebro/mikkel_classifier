@@ -4,35 +4,22 @@ import torch
 from torch import nn
 import torchmetrics
 
-from .model import Model
-
+from models.model import ResNet18
 
 class EngineModule(pl.LightningModule):
 
-    def __init__(self, config: DictConfig, main_metric: str="f1"):
+    def __init__(self, config: DictConfig, main_metric: str="acc"):
         super().__init__()
         self.config = config
-        self.model = Model(pretrained=config.model.pretrained, in_dim=config.model.in_dim, out_dim=config.model.out_dim)
+        self.model = ResNet18(pretrained=config.model.pretrained, in_dim=config.model.in_dim, out_dim=config.model.out_dim)
         self.loss_func = nn.BCEWithLogitsLoss()
 
         self.train_acc = torchmetrics.Accuracy()
         self.val_acc = torchmetrics.Accuracy()
 
-        self.train_f1 = torchmetrics.F1()
-        self.val_f1 = torchmetrics.F1()
-
-        self.train_recall = torchmetrics.Recall()
-        self.val_recall = torchmetrics.Recall()
-
-        self.train_precision = torchmetrics.Precision()
-        self.val_precision = torchmetrics.Precision()
-
-        self.metrics = ["acc", "f1", "recall", "precision"]
+        self.metrics = ["acc"]
         self.main_metric = main_metric
-        # not released yet :(
-        # self.train_specificity = torchmetrics.Specificity()
-        # self.val_specificity = torchmetrics.Specificity()
-
+        
     @property
     def lr(self):
         return self.optimizers().param_groups[0]['lr']
@@ -47,7 +34,6 @@ class EngineModule(pl.LightningModule):
                  on_step=False,
                  prog_bar=(metric_name == self.main_metric),
                  on_epoch=True, logger=True)
-
 
     def training_step(self, batch, batch_idx):
         images, labels = batch
@@ -69,6 +55,7 @@ class EngineModule(pl.LightningModule):
         pass
 
     def validation_step(self, batch, batch_idx):
+        
         images, labels = batch
         pred = self.model(images).squeeze()  # [Bx1] -> [B]
         loss = self.loss_func(pred, labels.type(torch.float32))
@@ -93,7 +80,6 @@ class EngineModule(pl.LightningModule):
             return [optimizer], [scheduler]
         else:
             return optimizer
-
 
 def get_optimizer(optim_config: DictConfig, params):
     name = optim_config.name

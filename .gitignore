@@ -91,3 +91,6 @@ target/
 
 # Personal login info
 personal_info.txt
+
+# Wandb
+/wandb
