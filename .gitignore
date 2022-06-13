@@ -94,3 +94,6 @@ personal_info.txt
 
 # Wandb
 /wandb
+
+# Experimental files
+make_dataset_profile
