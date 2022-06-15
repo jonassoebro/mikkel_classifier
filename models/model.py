@@ -9,6 +9,9 @@ class ResNet18(Module):
         self.linear = Linear(in_features=in_dim, out_features=out_dim, bias=True)
 
     def forward(self, x):
+        
+        if x.ndim != 4:
+            raise ValueError('Expected input to a 4D tensor')
         x = self.resnet(x)
         x = x.view(x.size(0), -1)
         print(x.shape)
