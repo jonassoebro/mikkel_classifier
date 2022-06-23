@@ -1,9 +1,10 @@
 import os.path
 import pytest
-import googleapiclient
 from src.data.data import get_data#, download_data
 from tests import _PATH_DATA
 train_dataloader, val_dataloader = get_data(1) # Batch size of 1 to assert len of dataloader
+
+
 
 # TODO: Get these numbers by reading amount of files in data folder so it stays up to date
 N_train = 953

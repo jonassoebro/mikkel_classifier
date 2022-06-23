@@ -4,7 +4,7 @@ model:
   in_dim: 512
 training:
   max_epochs: 100
-  batch_size: 32
+  batch_size: 1
   optimizer:
     name: adam
     lr: 0.0003

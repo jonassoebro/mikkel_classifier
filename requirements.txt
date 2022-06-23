@@ -2,14 +2,16 @@
 -e .
 pillow
 dvc
-"dvc[gdrive]"
+dvc[gdrive]
 torch
 torchvision
 matplotlib
 hydra-core
 wandb
+pytest
 omegaconf
 pytorch_lightning
+coverage
 
 # external requirements
 click

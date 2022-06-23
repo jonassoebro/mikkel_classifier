@@ -111,11 +111,12 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task: []
+    task:
+    - training.batch_size=1
   job:
     name: train_model
     chdir: null
-    override_dirname: ''
+    override_dirname: training.batch_size=1
     id: ???
     num: ???
     config_name: config
